@@ -1,16 +1,12 @@
 function getRandomNumber (min, max) {
-  const number = min + Math.random() * (max + 1 - min);
-  if (max <= min) {
-    return null;
-  }
-  return Math.floor(number);
+  return Math.floor(min + Math.random() * (max + 1 - min));
 }
 getRandomNumber(20, 80);
 
-function getLength (string) {
-  if (string < 141) {
+function isAllowedString (string, number = 140) {
+  if (string.length <= number) {
     return true;
   }
   return false;
 }
-getLength(130);
+isAllowedString(130);
