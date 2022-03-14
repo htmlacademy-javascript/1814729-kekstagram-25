@@ -33,6 +33,6 @@ const createPhoto = () => ({
   comments: genArrayOfObjects(35, createPhotoComments)
 });
 
-const photos = () => Array.from({length: MAX_ID}, createPhoto);
+const createArrPhotos = () => Array.from({length: MAX_ID}, createPhoto);
 
-export {photos};
+export {createArrPhotos};
