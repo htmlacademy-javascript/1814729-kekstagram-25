@@ -1,4 +1,4 @@
-import {MAX_STRING_LENGTH} from './constants.js';
+import {MAX_STRING_LENGTH, ESCAPE} from './constants.js';
 
 const getRandomNumber = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
@@ -14,4 +14,6 @@ const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements
 
 const genArrayOfObjects = (maxNumber, func) => Array.from({length: getRandomNumber(1, maxNumber)}, func);
 
-export {getRandomNumber, isAllowedString, getRandomArrayElement, genArrayOfObjects};
+const isEscapeKey = (evt) => evt.key === ESCAPE;
+
+export {getRandomNumber, isAllowedString, getRandomArrayElement, genArrayOfObjects, isEscapeKey};
