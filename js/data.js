@@ -1,6 +1,5 @@
 import {getRandomNumber, getRandomArrayElement, genArrayOfObjects} from './util.js';
-import {descriptions, messages, names} from './arrays.js';
-import {MAX_ID} from './constants.js';
+import {MAX_ID, descriptions, messages, names} from './constants.js';
 
 let commentId = 1;
 let photoId = 1;
