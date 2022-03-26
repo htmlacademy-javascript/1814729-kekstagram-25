@@ -1,5 +1,5 @@
 import {isEscapeKey} from './util.js';
-import {getComments} from './comment.js';
+import {getComments, clearComments} from './comment.js';
 
 const bigPictureElement = document.querySelector('.big-picture');
 const bigPictureImageElement = bigPictureElement.querySelector('.big-picture__img img');
@@ -10,17 +10,16 @@ const bigPicture = document.querySelector('.big-picture');
 const bigPictureCloseElement = bigPicture.querySelector('.big-picture__cancel');
 const commentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
-const commentsBox = document.querySelector('.social__comments');
-const templateFragment = document.querySelector('#comments').content;
-const template = templateFragment.querySelector('.social__comment');
 
 const renderPhoto = ({url, likes, comments, description}) => {
+  clearComments();
+
   bigPictureImageElement.src = url;
   bigPictureLikesElement.textContent = likes;
   bigPictureCommentsElement.textContent = comments.length;
   bigPictureDescriptionElement.textContent = description;
 
-  getComments();
+  getComments(comments);
 };
 
 const onPopupEscKeydown = (evt) => {
@@ -54,4 +53,4 @@ function closeBigPicture() {
   bigPictureCloseElement.removeEventListener('click', onBigPictureCloseElementClick);
 }
 
-export {openBigPicture, commentsBox, template};
+export {openBigPicture};
