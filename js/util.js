@@ -14,4 +14,6 @@ const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements
 
 const genArrayOfObjects = (maxNumber, func) => Array.from({length: getRandomNumber(1, maxNumber)}, func);
 
-export {getRandomNumber, isAllowedString, getRandomArrayElement, genArrayOfObjects};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomNumber, isAllowedString, getRandomArrayElement, genArrayOfObjects, isEscapeKey};
