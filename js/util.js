@@ -1,5 +1,3 @@
-import {MAX_STRING_LENGTH} from './constants.js';
-
 const getRandomNumber = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -8,7 +6,6 @@ const getRandomNumber = (a, b) => {
 };
 
 const isAllowedString = (string, number) => string.length <= number;
-isAllowedString('dldlmsclc', MAX_STRING_LENGTH);
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
