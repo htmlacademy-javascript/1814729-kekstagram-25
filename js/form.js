@@ -38,34 +38,27 @@ const clearForm = () => {
   commentField.value = '';
 };
 
-const hashtags = () => {
-  hashtagsField.value.split(' ').filter((item) => item !== '');
+const getHashtags = () => {
+  const hashtags = hashtagsField.value.split(' ').filter((item) => item !== '');
   return hashtags;
 };
 
 const checkHashtagLength = () => {
-  hashtags();
+  const hashtags = getHashtags();
   return hashtags.length < 6;
 };
 
 const checkHashtag = () => {
-  hashtags();
+  const hashtags = getHashtags();
   return hashtags.every((hashtag) => re.test(hashtag));
 };
 
 const checkUniqueHashtag = () => {
-  hashtags();
-  hashtagsField.value.toLowerCase();
-  for (let i = 0; i < hashtags.length; i++) {
-    for (let j = 0; j < i; j++) {
-      if (hashtags[j].toUpperCase() === hashtags[i].toUpperCase()) {
-        return false;
-      }
-    }
-  } return true;
+  const hashtags = getHashtags().map((item) => item.toLowerCase());
+  const uniqueHashtags = new Set(hashtags);
+
+  return uniqueHashtags.size === hashtags.length;
 };
-//   const uniqueHashtags = new Set(hashtagsField);
-//   return uniqueHashtags.size === checkHashtagLength();
 
 pristine.addValidator(hashtagsField, checkHashtag, 'хэш-тег начинается с символа #, содержит буквы и числа и не может содержит менее 20 символов');
 pristine.addValidator(hashtagsField, checkHashtagLength, 'не более пяти хэш-тегов');
@@ -75,11 +68,7 @@ const validateComment = (string) => isAllowedString(string, MAX_STRING_LENGTH);
 
 pristine.addValidator(commentField, validateComment, 'Длина комментария не более 140 символов');
 
-const activateFormModal = () => {
-  loadPhoto.addEventListener('change', openForm);
-};
-
-const getValidateStatus = () => {
+const getButtonStatus = () => {
   const isValid = pristine.validate();
   if (isValid) {
     buttonSubmit.disabled = false;
@@ -88,14 +77,14 @@ const getValidateStatus = () => {
   }
 };
 
-const activateFormValidation = () => {
-  hashtagsField.addEventListener('input', getValidateStatus);
-  commentField.addEventListener('input', getValidateStatus);
+const activateButtonSubmit = () => {
+  hashtagsField.addEventListener('input', getButtonStatus);
+  commentField.addEventListener('input', getButtonStatus);
 };
 
-const desactivateFormValidation = () => {
-  hashtagsField.removeEventListener('input', getValidateStatus);
-  commentField.removeEventListener('input', getValidateStatus);
+const desactivateButtonSubmit = () => {
+  hashtagsField.removeEventListener('input', getButtonStatus);
+  commentField.removeEventListener('input', getButtonStatus);
 };
 
 const onFormCloseElementClick = () => {
@@ -115,7 +104,7 @@ function openForm() {
   hashtagsField.addEventListener('keydown', onFormKeydown);
   commentField.addEventListener('keydown', onFormKeydown);
 
-  activateFormValidation();
+  activateButtonSubmit();
 }
 
 function closeForm() {
@@ -127,8 +116,12 @@ function closeForm() {
   hashtagsField.removeEventListener('keydown', onFormKeydown);
   commentField.removeEventListener('keydown', onFormKeydown);
 
-  desactivateFormValidation();
+  desactivateButtonSubmit();
   clearForm();
 }
+
+const activateFormModal = () => {
+  loadPhoto.addEventListener('change', openForm);
+};
 
 export default activateFormModal;
