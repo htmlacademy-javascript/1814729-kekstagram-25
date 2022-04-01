@@ -29,4 +29,4 @@ const clearComments = () => {
   commentsBox.innerHTML = '';
 };
 
-export {getComments, clearComments, commentsBox};
+export {getComments, clearComments};
