@@ -12,21 +12,27 @@ const bigPictureCloseElement = bigPicture.querySelector('.big-picture__cancel');
 const commentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
 
-const createCommentsParts = (array) => {
-  const allComments = array.slice();
-  const partComments = allComments.splice(0, COMMENTS_PART);
+let basisComments = null;
+let commentsCounter = 0;
 
-  getComments(partComments);
+const createCommentsParts = () => {
+  const currentComments = basisComments.slice(commentsCounter, commentsCounter + COMMENTS_PART);
+  commentsCounter += currentComments.length;
+  getComments(currentComments);
 
-  // const commentCountRight = commentCount.childNodes[0];
-  // const commentCountBetween = commentCount.childNodes[1];
-  // const commentCountLeft = commentCount.childNodes[2];
+  const commentCountFirstChildNode = commentCount.childNodes[0];
+  const index = commentCountFirstChildNode.nodeValue.indexOf('из');
+  const subString = commentCountFirstChildNode.nodeValue.slice(index);
 
-  if (partComments.length === 0) {
-    commentsLoader.classList.add ('hidden');
-    commentCount.classList.add ('hidden');
-    commentsLoader.removeEventListener('click', () => {});
+  commentCountFirstChildNode.nodeValue = `${commentsCounter} ${subString}`;
+
+  if (commentsCounter === basisComments.length) {
+    commentsLoader.classList.add('hidden');
   }
+};
+
+const onCommentsLoaderClick = () => {
+  createCommentsParts();
 };
 
 const onPopupEscKeydown = (evt) => {
@@ -40,60 +46,36 @@ const onBigPictureCloseElementClick = () => {
   closeBigPicture();
 };
 
-function openBigPicture(bigPictures) {
+function openBigPicture(bigPhoto) {
   document.body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
 
   clearComments();
 
-  bigPictureImageElement.src = bigPictures.url;
-  bigPictureLikesElement.textContent = bigPictures.likes;
-  bigPictureCommentsElement.textContent = bigPictures.comments.length;
-  bigPictureDescriptionElement.textContent = bigPictures.description;
+  const {url, likes, comments, description} = bigPhoto;
+  bigPictureImageElement.src = url;
+  bigPictureLikesElement.textContent = likes;
+  bigPictureCommentsElement.textContent = comments.length;
+  bigPictureDescriptionElement.textContent = description;
+  basisComments = comments;
 
-  createCommentsParts(bigPictures.comments);
+  createCommentsParts();
 
   document.addEventListener('keydown', onPopupEscKeydown);
   bigPictureCloseElement.addEventListener('click', onBigPictureCloseElementClick);
   commentsLoader.addEventListener('click', onCommentsLoaderClick);
-
-  function onCommentsLoaderClick (evt) {
-    evt.preventDefault();
-    createCommentsParts(bigPictures.comments);
-  }
 }
 
 function closeBigPicture() {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  commentsLoader.classList.remove('hidden');
 
   document.removeEventListener('keydown', onPopupEscKeydown);
   bigPictureCloseElement.removeEventListener('click', onBigPictureCloseElementClick);
+  commentsLoader.removeEventListener('click', onCommentsLoaderClick);
+
+  commentsCounter = 0;
 }
 
 export {openBigPicture};
-
-// const createCommentsPart = (array, box) => {
-//   const allComments = array.slice();
-//   const partComments = allComments.splice(0, COMMENTS_PART);
-//   let partCommentsLength = partComments.length;
-//   box.appendChild(partComments);
-//   commentCount.textContent = `${partCommentsLength} из ${array.length}`;
-
-//   if (partCommentsLength === array.length) {
-//     commentsLoader.classList.add ('hidden');
-//   }
-
-//   const openNextComments = (evt) => {
-//     evt.preventDefault();
-//     commentsLoader.classList.remove('hidden');
-//     const nextCommentsPart = allComments.splice(0, COMMENTS_PART);
-//     const nextCommentsLength = nextCommentsPart.length;
-//     partCommentsLength = partCommentsLength + nextCommentsLength;
-
-//     if (allComments.length === 0) {
-//       commentsLoader.classList.add ('hidden');
-//     }
-//   };
-//   commentsLoader.addEventListener('click', openNextComments);
-// };
