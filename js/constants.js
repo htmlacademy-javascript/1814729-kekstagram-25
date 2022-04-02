@@ -2,6 +2,8 @@ const MAX_STRING_LENGTH = 140;
 
 const MAX_ID = 25;
 
+const COMMENTS_PART = 5;
+
 const descriptions = [
   'Пляж',
   'Go to the beach',
@@ -59,4 +61,4 @@ const names = [
   'Катрин',
 ];
 
-export {MAX_STRING_LENGTH, MAX_ID, descriptions, messages, names};
+export {MAX_STRING_LENGTH, MAX_ID, COMMENTS_PART, descriptions, messages, names};
