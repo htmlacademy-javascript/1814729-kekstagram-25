@@ -60,7 +60,7 @@ const checkUniqueHashtag = () => {
   return uniqueHashtags.size === hashtags.length;
 };
 
-pristine.addValidator(hashtagsField, checkHashtag, 'хэш-тег начинается с символа #, содержит буквы и числа и не может содержит менее 20 символов');
+pristine.addValidator(hashtagsField, checkHashtag, 'хэш-тег начинается с символа #, содержит буквы и числа и не может содержать более 20 символов');
 pristine.addValidator(hashtagsField, checkHashtagLength, 'не более пяти хэш-тегов');
 pristine.addValidator(hashtagsField, checkUniqueHashtag, 'хэш-теги не должны повторяться, хэш-теги нечувствительны к регистру');
 
