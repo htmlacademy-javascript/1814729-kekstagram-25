@@ -1,5 +1,6 @@
 import {isAllowedString, isEscapeKey} from './util.js';
 import {MAX_STRING_LENGTH} from './constants.js';
+import {onEffectFieldClick, activatePhotoResizing, desactivatePhotoResizing, resetEffect, resetScale} from './effects.js';
 
 const form = document.querySelector('#upload-select-image');
 const loadPhoto = document.querySelector('#upload-file');
@@ -9,6 +10,7 @@ const hashtagsField = form.querySelector('.text__hashtags');
 const commentField = form.querySelector('.text__description');
 const body = document.querySelector('body');
 const buttonSubmit = document.querySelector('.img-upload__submit');
+const listEffects = document.querySelector('.effects__list');
 
 const re = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 
@@ -103,8 +105,12 @@ function openForm() {
   form.addEventListener('submit', onFormSubmitClick);
   hashtagsField.addEventListener('keydown', onFormKeydown);
   commentField.addEventListener('keydown', onFormKeydown);
+  listEffects.addEventListener('change', onEffectFieldClick);
 
   activateButtonSubmit();
+  activatePhotoResizing();
+  resetEffect();
+  resetScale();
 }
 
 function closeForm() {
@@ -115,8 +121,11 @@ function closeForm() {
   form.removeEventListener('submit', onFormSubmitClick);
   hashtagsField.removeEventListener('keydown', onFormKeydown);
   commentField.removeEventListener('keydown', onFormKeydown);
+  listEffects.removeEventListener('change', onEffectFieldClick);
+
 
   desactivateButtonSubmit();
+  desactivatePhotoResizing();
   clearForm();
 }
 
