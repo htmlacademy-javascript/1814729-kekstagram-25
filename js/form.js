@@ -1,6 +1,7 @@
-import {isAllowedString, isEscapeKey} from './util.js';
-import {MAX_STRING_LENGTH} from './constants.js';
+import {isAllowedString, isEscapeKey, showAlert} from './util.js';
+import {MAX_STRING_LENGTH, COLOR_MESSAGE_FORM_SUBMIT, COLOR_MESSAGE_FORM_NOT_SUBMIT} from './constants.js';
 import {onEffectFieldClick, activatePhotoResizing, desactivatePhotoResizing, resetEffect, resetScale} from './effects.js';
+import {sendData} from './api.js';
 
 const form = document.querySelector('#upload-select-image');
 const loadPhoto = document.querySelector('#upload-file');
@@ -93,8 +94,28 @@ const onFormCloseElementClick = () => {
   closeForm();
 };
 
+const onSuccess = () => {
+  closeForm();
+  showAlert(COLOR_MESSAGE_FORM_SUBMIT, 'Форма успешно отправлена.');
+};
+
+const onFail = () => {
+  buttonSubmit.disabled = true;
+  showAlert(COLOR_MESSAGE_FORM_NOT_SUBMIT, 'Не удалось отправить форму. Попробуйте ещё раз.');
+};
+
 const onFormSubmitClick = (evt) => {
   evt.preventDefault();
+
+  const isValid = pristine.validate();
+  if (isValid) {
+    sendData(
+      () => onSuccess(),
+      () => onFail(),
+      // () => showAlert(COLOR_MESSAGE_FORM_NOT_SUBMIT, 'Не удалось отправить форму. Попробуйте ещё раз.'),
+      new FormData(evt.target),
+    );
+  }
 };
 
 function openForm() {
