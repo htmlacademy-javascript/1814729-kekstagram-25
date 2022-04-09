@@ -15,7 +15,7 @@ const genArrayOfObjects = (maxNumber, func) => Array.from({length: getRandomNumb
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const showAlert = (color, message) => {
+const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 100;
   alertContainer.style.position = 'absolute';
@@ -26,10 +26,10 @@ const showAlert = (color, message) => {
   alertContainer.style.fontSize = '30px';
   alertContainer.style.textAlign = 'center';
   alertContainer.style.color = '#433823';
+  alertContainer.style.backgroundColor = '#3c944a';
   alertContainer.style.opacity = 0.7;
   alertContainer.style.textTransform = 'none';
 
-  alertContainer.style.backgroundColor = color;
   alertContainer.textContent = message;
 
   document.body.append(alertContainer);

@@ -1,25 +1,36 @@
-const getData = (onSuccess) => {
+const getData = (onSuccess, onFail) => {
   fetch('https://25.javascript.pages.academy/kekstagram/data')
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        response.json();
+      } else {
+        onFail();
+      }
+    })
     .then((miniatures) => {
       onSuccess(miniatures);
+    })
+    .catch(() => {
+      onFail();
     });
 };
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://25.javascript.pages.academ/kekstagram',
+    'https://25.javascript.pages.academy/kekstagram',
     {
       method: 'POST',
       body,
     },
   )
-    .then(() => onSuccess())
-    .catch(() => {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз.');
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+      }
+      onFail();
     })
     .catch(() => {
-      onFail('Не удалось отправить форму. Возможно, проблема с сетю.');
+      onFail();
     });
 };
 

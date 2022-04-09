@@ -1,7 +1,9 @@
-import {isAllowedString, isEscapeKey, showAlert} from './util.js';
-import {MAX_STRING_LENGTH, COLOR_MESSAGE_FORM_SUBMIT, COLOR_MESSAGE_FORM_NOT_SUBMIT} from './constants.js';
+import {isAllowedString, isEscapeKey} from './util.js';
+import {MAX_STRING_LENGTH} from './constants.js';
 import {onEffectFieldClick, activatePhotoResizing, desactivatePhotoResizing, resetEffect, resetScale} from './effects.js';
 import {sendData} from './api.js';
+import {openWindowSuccess, openWindowError} from './messages-from-server.js';
+
 
 const form = document.querySelector('#upload-select-image');
 const loadPhoto = document.querySelector('#upload-file');
@@ -90,29 +92,48 @@ const desactivateButtonSubmit = () => {
   commentField.removeEventListener('input', getButtonStatus);
 };
 
+const blockSubmitButton = () => {
+  buttonSubmit.disabled = true;
+  buttonSubmit.textContent = 'Опубликовываю...';
+};
+
+const unblockSubmitButton = () => {
+  buttonSubmit.disabled = false;
+  buttonSubmit.textContent = 'Опубликовать';
+};
+
 const onFormCloseElementClick = () => {
   closeForm();
 };
 
-const onSuccess = () => {
-  closeForm();
-  showAlert(COLOR_MESSAGE_FORM_SUBMIT, 'Форма успешно отправлена.');
-};
+// const onSuccess = () => {
+//   closeForm();
+//   unblockSubmitButton();
+//   openWindowSuccess();
+// };
 
-const onFail = () => {
-  buttonSubmit.disabled = true;
-  showAlert(COLOR_MESSAGE_FORM_NOT_SUBMIT, 'Не удалось отправить форму. Попробуйте ещё раз.');
-};
+// const onFail = () => {
+//   closeForm();
+//   unblockSubmitButton();
+//   openWindowError();
+// };
 
 const onFormSubmitClick = (evt) => {
   evt.preventDefault();
 
   const isValid = pristine.validate();
   if (isValid) {
+    blockSubmitButton();
     sendData(
-      () => onSuccess(),
-      () => onFail(),
-      // () => showAlert(COLOR_MESSAGE_FORM_NOT_SUBMIT, 'Не удалось отправить форму. Попробуйте ещё раз.'),
+      () => {
+        closeForm();
+        unblockSubmitButton();
+        openWindowSuccess();
+      },
+      () => {
+        unblockSubmitButton();
+        openWindowError();
+      },
       new FormData(evt.target),
     );
   }
@@ -143,7 +164,6 @@ function closeForm() {
   hashtagsField.removeEventListener('keydown', onFormKeydown);
   commentField.removeEventListener('keydown', onFormKeydown);
   listEffects.removeEventListener('change', onEffectFieldClick);
-
 
   desactivateButtonSubmit();
   desactivatePhotoResizing();
