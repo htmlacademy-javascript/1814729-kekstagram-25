@@ -106,18 +106,6 @@ const onFormCloseElementClick = () => {
   closeForm();
 };
 
-// const onSuccess = () => {
-//   closeForm();
-//   unblockSubmitButton();
-//   openWindowSuccess();
-// };
-
-// const onFail = () => {
-//   closeForm();
-//   unblockSubmitButton();
-//   openWindowError();
-// };
-
 const onFormSubmitClick = (evt) => {
   evt.preventDefault();
 
