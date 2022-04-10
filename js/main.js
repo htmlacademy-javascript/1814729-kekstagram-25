@@ -1,6 +1,8 @@
-import getPhotosData from './data.js';
 import renderMiniatures from './render-miniatures.js';
 import activateFormModal from './form.js';
+import {getData} from './api.js';
+import {onGetDataFail} from './messages-from-server.js';
 
-renderMiniatures(getPhotosData());
+getData(renderMiniatures, onGetDataFail);
+
 activateFormModal();

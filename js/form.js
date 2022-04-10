@@ -1,6 +1,9 @@
 import {isAllowedString, isEscapeKey} from './util.js';
 import {MAX_STRING_LENGTH} from './constants.js';
 import {onEffectFieldClick, activatePhotoResizing, desactivatePhotoResizing, resetEffect, resetScale} from './effects.js';
+import {sendData} from './api.js';
+import {openWindowSuccess, openWindowError} from './messages-from-server.js';
+
 
 const form = document.querySelector('#upload-select-image');
 const loadPhoto = document.querySelector('#upload-file');
@@ -89,12 +92,39 @@ const desactivateButtonSubmit = () => {
   commentField.removeEventListener('input', getButtonStatus);
 };
 
+const blockSubmitButton = () => {
+  buttonSubmit.disabled = true;
+  buttonSubmit.textContent = 'Опубликовываю...';
+};
+
+const unblockSubmitButton = () => {
+  buttonSubmit.disabled = false;
+  buttonSubmit.textContent = 'Опубликовать';
+};
+
 const onFormCloseElementClick = () => {
   closeForm();
 };
 
 const onFormSubmitClick = (evt) => {
   evt.preventDefault();
+
+  const isValid = pristine.validate();
+  if (isValid) {
+    blockSubmitButton();
+    sendData(
+      () => {
+        closeForm();
+        unblockSubmitButton();
+        openWindowSuccess();
+      },
+      () => {
+        unblockSubmitButton();
+        openWindowError();
+      },
+      new FormData(evt.target),
+    );
+  }
 };
 
 function openForm() {
@@ -122,7 +152,6 @@ function closeForm() {
   hashtagsField.removeEventListener('keydown', onFormKeydown);
   commentField.removeEventListener('keydown', onFormKeydown);
   listEffects.removeEventListener('change', onEffectFieldClick);
-
 
   desactivateButtonSubmit();
   desactivatePhotoResizing();

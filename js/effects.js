@@ -34,9 +34,8 @@ const desactivatePhotoResizing = () => {
 };
 
 const resetScale = () => {
-  // imgUploadPreview.className = '';
   imgUploadPreview.style.transform = 'none';
-  // sliderFieldset.style.display = 'none';
+  valuePhotoScale.value = '100%';
 };
 
 const resetEffect = () => {
