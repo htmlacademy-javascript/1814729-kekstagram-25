@@ -3,7 +3,8 @@ import {MAX_STRING_LENGTH} from './constants.js';
 import {onEffectFieldClick, activatePhotoResizing, desactivatePhotoResizing, resetEffect, resetScale} from './effects.js';
 import {sendData} from './api.js';
 import {openWindowSuccess, openWindowError} from './messages-from-server.js';
-
+import uploadMyPhoto from './upload-photo.js';
+// import {openWindowMessage} from './messages-from-server.js';
 
 const form = document.querySelector('#upload-select-image');
 const loadPhoto = document.querySelector('#upload-file');
@@ -117,10 +118,12 @@ const onFormSubmitClick = (evt) => {
         closeForm();
         unblockSubmitButton();
         openWindowSuccess();
+        // openWindowMessage();
       },
       () => {
         unblockSubmitButton();
         openWindowError();
+        // openWindowMessage();
       },
       new FormData(evt.target),
     );
@@ -160,6 +163,7 @@ function closeForm() {
 
 const activateFormModal = () => {
   loadPhoto.addEventListener('change', openForm);
+  uploadMyPhoto();
 };
 
 export default activateFormModal;

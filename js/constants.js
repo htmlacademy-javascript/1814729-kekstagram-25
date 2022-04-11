@@ -5,6 +5,8 @@ const MIN_PHOTO_SIZE = 25;
 const MAX_PHOTO_SIZE = 100;
 const STEP = 25;
 const ALERT_SHOW_TIME = 5000;
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const DEFAULT_PHOTO_URL = 'img/upload-default-image.jpg';
 
 const FILTERS_CONFIG = {
   chrome: {
@@ -126,4 +128,4 @@ const names = [
   'Катрин',
 ];
 
-export {MAX_STRING_LENGTH, MAX_ID, COMMENTS_PART, MIN_PHOTO_SIZE, MAX_PHOTO_SIZE, STEP, FILTERS_CONFIG, ALERT_SHOW_TIME, descriptions, messages, names};
+export {MAX_STRING_LENGTH, MAX_ID, COMMENTS_PART, MIN_PHOTO_SIZE, MAX_PHOTO_SIZE, STEP, FILTERS_CONFIG, ALERT_SHOW_TIME, FILE_TYPES, DEFAULT_PHOTO_URL, descriptions, messages, names};
