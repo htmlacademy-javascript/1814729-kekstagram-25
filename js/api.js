@@ -1,3 +1,5 @@
+import activateFilters from './filter.js';
+
 const getData = (onSuccess, onFail) => {
   fetch('https://25.javascript.pages.academy/kekstagram/data')
     .then((response) => {
@@ -8,6 +10,7 @@ const getData = (onSuccess, onFail) => {
     })
     .then((miniatures) => {
       onSuccess(miniatures);
+      activateFilters(miniatures);
     })
     .catch(() => {
       onFail();

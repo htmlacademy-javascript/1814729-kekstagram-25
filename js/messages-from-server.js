@@ -10,6 +10,8 @@ const openWindowSuccess = () => {
   const success = templateSuccess.cloneNode(true);
   const successButton = success.querySelector('.success__button');
 
+  success.style.zIndex = 100;
+
   body.append(success);
 
   const removeSuccessMessage = () => {
@@ -42,6 +44,8 @@ const openWindowSuccess = () => {
 const openWindowError = () => {
   const error = templateError.cloneNode(true);
   const errorButton = error.querySelector('.error__button');
+
+  error.style.zIndex = 100;
 
   body.append(error);
 

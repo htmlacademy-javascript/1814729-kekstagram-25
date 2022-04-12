@@ -3,7 +3,7 @@ import {MAX_STRING_LENGTH} from './constants.js';
 import {onEffectFieldClick, activatePhotoResizing, desactivatePhotoResizing, resetEffect, resetScale} from './effects.js';
 import {sendData} from './api.js';
 import {openWindowSuccess, openWindowError} from './messages-from-server.js';
-
+import getPreview from './preview.js';
 
 const form = document.querySelector('#upload-select-image');
 const loadPhoto = document.querySelector('#upload-file');
@@ -141,6 +141,7 @@ function openForm() {
   activatePhotoResizing();
   resetEffect();
   resetScale();
+  getPreview();
 }
 
 function closeForm() {
