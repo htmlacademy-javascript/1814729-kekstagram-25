@@ -1,5 +1,4 @@
 const MAX_STRING_LENGTH = 140;
-const MAX_ID = 25;
 const COMMENTS_PART = 5;
 const MIN_PHOTO_SIZE = 25;
 const MAX_PHOTO_SIZE = 100;
@@ -72,61 +71,4 @@ const FILTERS_CONFIG = {
   },
 };
 
-const descriptions = [
-  'Пляж',
-  'Go to the beach',
-  'Море',
-  'Красота',
-  'Суп',
-  'Поехали',
-  'Клубника',
-  'Коктейли',
-  'Самолёт',
-  'Хранение обуви',
-  'Дорога',
-  'Ауди',
-  'Красная рыбка',
-  'Рыжий кот',
-  'Супер-тапки',
-  'Небо',
-  'Хор',
-  'Ретро-машина',
-  'Блики',
-  'Пальмы',
-  'Салат',
-  'Закат',
-  'Краб',
-  'Концерт',
-  'Бегемот'
-];
-
-const messages = [
-  'Всё отлично!',
-  'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.',
-  'В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают.',
-  'Как можно было поймать такой неудачный момент?!',
-];
-
-const names = [
-  'Марта',
-  'Майра',
-  'Чебурашка',
-  'Клава',
-  'Туся',
-  'Марс',
-  'Игорь',
-  'Коля',
-  'Арчи',
-  'Тамара',
-  'София',
-  'Адриан',
-  'Юта',
-  'Юрий',
-  'Катрин',
-];
-
-export {MAX_STRING_LENGTH, MAX_ID, COMMENTS_PART, MIN_PHOTO_SIZE, MAX_PHOTO_SIZE, STEP, FILTERS_CONFIG, ALERT_SHOW_TIME, FILE_TYPES, RANDOM_COUNT, DEBOUNCE_FILTER, descriptions, messages, names};
+export {MAX_STRING_LENGTH, COMMENTS_PART, MIN_PHOTO_SIZE, MAX_PHOTO_SIZE, STEP, FILTERS_CONFIG, ALERT_SHOW_TIME, FILE_TYPES, RANDOM_COUNT, DEBOUNCE_FILTER};
