@@ -11,8 +11,6 @@ const isAllowedString = (string, number) => string.length <= number;
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-const genArrayOfObjects = (maxNumber, func) => Array.from({length: getRandomNumber(1, maxNumber)}, func);
-
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const showAlert = (message) => {
@@ -47,4 +45,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export {getRandomNumber, isAllowedString, getRandomArrayElement, genArrayOfObjects, isEscapeKey, showAlert, debounce};
+export {getRandomNumber, isAllowedString, getRandomArrayElement, isEscapeKey, showAlert, debounce};
