@@ -4,6 +4,7 @@ import {RANDOM_COUNT, DEBOUNCE_FILTER} from './constants.js';
 
 const filterSection = document.querySelector('.img-filters');
 const filterButtons = filterSection.querySelectorAll('.img-filters__button');
+const filterForm = document.querySelector('.img-filters__form');
 
 const clearActiveStatus = () => {
   filterButtons.forEach((filterButton) => {
@@ -41,8 +42,9 @@ const renderFilteredMiniatures = (filteredMiniatures) => {
 const activateFilters = (pictures) => {
   filterSection.classList.remove('img-filters--inactive');
 
-  filterButtons.forEach((filterButton) => {
-    filterButton.addEventListener('click', debounce((evt) => {
+  filterForm.addEventListener(
+    'click',
+    debounce((evt) => {
       clearActiveStatus();
 
       evt.target.classList.add('img-filters__button--active');
@@ -54,8 +56,8 @@ const activateFilters = (pictures) => {
       } else if (evt.target.matches('#filter-discussed')) {
         renderFilteredMiniatures(getSortedMiniatures(pictures));
       }
-    }, DEBOUNCE_FILTER));
-  });
+    }, DEBOUNCE_FILTER)
+  );
 };
 
 export default activateFilters;

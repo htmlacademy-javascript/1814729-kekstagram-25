@@ -41,6 +41,7 @@ const clearForm = () => {
   loadPhoto.value = '';
   hashtagsField.value = '';
   commentField.value = '';
+  pristine.reset();
 };
 
 const getHashtags = () => {
